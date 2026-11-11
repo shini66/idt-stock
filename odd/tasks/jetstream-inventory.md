@@ -10,11 +10,11 @@ S3. "revisa el codigo y dime como implementar laravel Jetstream y usa aplicar lo
 
 ## Tasks
 
-- T1 | S1-S3 | install and restrict Jetstream Livewire to the basic authentication scope | commit: 1035fe3
-- T2 | S1-S3 | correct inventory authorization, movement ownership, relationships, and product CRUD defects | commit: 1035fe3
-- T3 | S1-S2 | create authenticated inventory and product Blade views | commit: 1035fe3
-- T4 | S1-S3 | add focused Pest coverage for access and inventory actions | commit: 1035fe3
-- T5 | S1-S3 | format and verify the complete integration | commit: 1035fe3
+- T1 | S1-S3 | install and restrict Jetstream Livewire to the basic authentication scope | commit: 5424064
+- T2 | S1-S3 | correct inventory authorization, movement ownership, relationships, and product CRUD defects | commit: 5424064
+- T3 | S1-S2 | create authenticated inventory and product Blade views | commit: 5424064
+- T4 | S1-S3 | add focused Pest coverage for access and inventory actions | commit: 5424064
+- T5 | S1-S3 | format and verify the complete integration | commit: 5424064
 
 ## Log
 
@@ -29,4 +29,4 @@ S3. "revisa el codigo y dime como implementar laravel Jetstream y usa aplicar lo
 - L9 | The one authorized focused Pest run for T2 found two 403 failures caused by movement-test users lacking the `operator` role. The fixture was corrected, but the one-run limit prohibits a rerun without a new user request.
 - L10 | Jetstream basic scope was completed: email verification remains enabled; API tokens, teams, 2FA, passkeys, their untracked generated migrations, views, and tests were removed. Existing base migrations were not rewritten.
 - L11 | User authorized a new bounded verification attempt. Focused Pest passed: 7 tests, 23 assertions. Vite production build passed.
-- L12 | Work unit commit 1035fe3 includes the feature. It exceeds the normal review size because Jetstream-generated scaffolding and lockfiles are an indivisible installation boundary; no further commits are planned.
+- L12 | Work unit commit 5424064 includes the feature. It exceeds the normal review size because Jetstream-generated scaffolding and lockfiles are an indivisible installation boundary; no further commits are planned.
