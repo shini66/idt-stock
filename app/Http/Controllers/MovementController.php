@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class MovementController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'product_id' => ['required', 'integer', 'exists:products,id'],
@@ -17,7 +18,7 @@ class MovementController extends Controller
             'quantity' => ['required', 'integer', 'min:1', 'max:99999'],
             'occurred_on' => ['required', 'date_format:Y-m-d', 'before_or_equal:today'],
             'supplier' => ['exclude_unless:type,in', 'required', 'string', 'max:120'],
-            'reason' => ['exclude_unless:type,out', 'required', 'string', 'max:180'],
+            'reason' => ['exclude_unless:type,out', 'required', 'string', 'max:100'],
         ]);
 
         DB::transaction(function () use ($data, $request) {
@@ -25,9 +26,9 @@ class MovementController extends Controller
             $quantity = (int) $data['quantity'];
             $next = $data['type'] === 'in' ? $product->stock + $quantity : $product->stock - $quantity;
 
-            if($next < 0 || $next > 99999) {
+            if ($next < 0 || $next > 99999) {
                 throw ValidationException::withMessages([
-                    'quantity' => $next < 0 ? 'Stock Insuficiente' : 'Se supero el limite de stock'
+                    'quantity' => $next < 0 ? 'Stock Insuficiente' : 'Se supero el limite de stock',
                 ]);
             }
 
@@ -38,9 +39,9 @@ class MovementController extends Controller
                 'type' => $data['type'],
                 'quantity' => $data['quantity'],
                 'occurred_on' => $data['occurred_on'],
-                'supplier' => $data['supplier'],
-                'reason' => $data['reason'],
-                'user_id' => $data['user_id'],
+                'supplier' => $data['supplier'] ?? null,
+                'reason' => $data['reason'] ?? null,
+                'user_id' => $request->user()->id,
             ]);
         }, 3);
 
