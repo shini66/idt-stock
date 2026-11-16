@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Movement extends Model
 {
@@ -18,11 +19,16 @@ class Movement extends Model
 
     protected $casts = [
         'quantity' => 'integer',
-        'occurred_on' => 'date'
+        'occurred_on' => 'date',
     ];
 
-    public function product()
+    public function product(): BelongsTo
     {
-        return $this->hasMany(Product::class)->withTrashed();
+        return $this->belongsTo(Product::class)->withTrashed();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

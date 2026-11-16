@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -17,10 +18,10 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'stock' => 'integer'
+        'stock' => 'integer',
     ];
 
-    public function movements()
+    public function movements(): HasMany
     {
         return $this->hasMany(Movement::class);
     }
