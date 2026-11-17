@@ -11,6 +11,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'can:use-stock'])->group(function () {
     Route::get('/stock', [InventoryController::class, 'index'])->name('stock.index');
+    Route::get('/stock/products', [InventoryController::class, 'products'])->name('stock.products');
+    Route::get('/stock/movements', [InventoryController::class, 'movements'])->name('stock.movements');
     Route::get('/stock/live', [InventoryController::class, 'live'])->name('stock.live');
     Route::post('/movements', [MovementController::class, 'store'])->name('movements.store');
     Route::middleware('can:manage-product')->group(function () {

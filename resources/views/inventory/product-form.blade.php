@@ -8,8 +8,8 @@
                 <p class="mt-1 text-sm text-gray-500">Los movimientos son los únicos que modifican el stock.</p>
             </div>
 
-            <a href="{{ route('stock.index') }}" class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Volver al inventario
+            <a href="{{ route('stock.products') }}" class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Volver a productos
             </a>
         </div>
     </x-slot>
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="flex justify-end gap-3">
-                        <a href="{{ route('stock.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">Cancelar</a>
+                        <a href="{{ route('stock.products') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">Cancelar</a>
                         <x-button>{{ $product->exists ? 'Guardar cambios' : 'Crear producto' }}</x-button>
                     </div>
                 </form>

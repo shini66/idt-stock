@@ -76,7 +76,7 @@
             </section>
 
             <div class="grid gap-8 xl:grid-cols-5">
-                <section class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-200 xl:col-span-3" aria-labelledby="catalog-heading">
+                <section class="min-w-0 rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-200 xl:col-span-3" aria-labelledby="catalog-heading">
                     <div class="flex items-center justify-between gap-4">
                         <h3 id="catalog-heading" class="text-lg font-semibold text-gray-900">Catálogo</h3>
                         <span class="text-sm text-gray-500">{{ $products->total() }} productos</span>
@@ -183,7 +183,7 @@
                 </section>
             </div>
 
-            <section class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-200" aria-labelledby="history-heading">
+            <section class="min-w-0 rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-200" aria-labelledby="history-heading">
                 <div class="flex items-center justify-between gap-4">
                     <h3 id="history-heading" class="text-lg font-semibold text-gray-900">Movimientos</h3>
                     <span class="text-sm text-gray-500">{{ $movements->total() }} registros</span>
