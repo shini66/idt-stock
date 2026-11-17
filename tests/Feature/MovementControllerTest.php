@@ -56,3 +56,38 @@ it('rejects an outbound reason longer than its database column', function () {
         'product_id' => $product->id,
     ]);
 });
+
+it('conserva el saldo y el historial si una salida excede el stock', function(){
+    $operador = User::factory()->create(['role' => 'operator']);
+    $product = Product::query()->create([
+        'name' => 'Cable USB',
+        'category' => 'Insumos',
+        'sku' => 'DEMO-48'
+    ]);
+
+    $base = [
+        'product_id' => $product->id,
+        'occurred_on' => today()->toDateString(),
+    ];
+
+    $this->actingAs($operador)->post(route('movements.store'), $base + [
+        'type' => 'in',
+        'quantity' => 10,
+        'supplier' => 'Proveedor demo',
+    ])->assertRedirectToRoute('stock.index')->assertSessionHasNoErrors();
+
+    $this->post(route('movements.store'), $base + [
+        'type' => 'out',
+        'quantity' => 4,
+        'reason' => 'Pedido',
+    ])->assertRedirectToRoute('stock.index')->assertSessionHasNoErrors();
+
+    $this->from(route('stock.index'))->post(route('movements.store'), $base + [
+        'type' => 'out',
+        'quantity' => 7,
+        'reason' => 'Pedido',
+    ])->assertRedirectToRoute('stock.index')->assertSessionHasErrors('quantity');
+
+    $this->assertDatabaseHas('products', ['id' => $product->id, 'stock' => 6]);
+    $this->assertDatabaseCount('movements', 2);
+});
