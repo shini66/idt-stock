@@ -23,18 +23,6 @@
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
-            @auth
-                @can('use-stock')
-                    <nav class="border-b border-gray-200 bg-white" aria-label="Inventario">
-                        <div class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 sm:px-6 lg:px-8">
-                            <a href="{{ route('stock.index') }}" @class(['whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium', 'border-indigo-500 text-indigo-700' => request()->routeIs('stock.index'), 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-900' => ! request()->routeIs('stock.index')])>Dashboard</a>
-                            <a href="{{ route('stock.products') }}" @class(['whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium', 'border-indigo-500 text-indigo-700' => request()->routeIs('stock.products') || request()->routeIs('products.*'), 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-900' => ! request()->routeIs('stock.products') && ! request()->routeIs('products.*')])>Productos</a>
-                            <a href="{{ route('stock.movements') }}" @class(['whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium', 'border-indigo-500 text-indigo-700' => request()->routeIs('stock.movements'), 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-900' => ! request()->routeIs('stock.movements')])>Movimientos</a>
-                        </div>
-                    </nav>
-                @endcan
-            @endauth
-
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">

@@ -13,8 +13,14 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @can('use-stock')
-                        <x-nav-link href="{{ route('stock.index') }}" :active="request()->routeIs('stock.*') || request()->routeIs('products.*')">
-                            Inventario
+                        <x-nav-link href="{{ route('stock.index') }}" :active="request()->routeIs('stock.index')">
+                            Dashboard
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('stock.products') }}" :active="request()->routeIs('stock.products') || request()->routeIs('products.*')">
+                            Productos
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('stock.movements') }}" :active="request()->routeIs('stock.movements')">
+                            Movimientos
                         </x-nav-link>
                     @endcan
                 </div>
@@ -84,8 +90,14 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @can('use-stock')
-                <x-responsive-nav-link href="{{ route('stock.index') }}" :active="request()->routeIs('stock.*') || request()->routeIs('products.*')">
-                    Inventario
+                <x-responsive-nav-link href="{{ route('stock.index') }}" :active="request()->routeIs('stock.index')">
+                    Dashboard
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('stock.products') }}" :active="request()->routeIs('stock.products') || request()->routeIs('products.*')">
+                    Productos
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('stock.movements') }}" :active="request()->routeIs('stock.movements')">
+                    Movimientos
                 </x-responsive-nav-link>
             @endcan
         </div>
