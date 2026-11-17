@@ -10,8 +10,8 @@ S3. “aplica ambas”
 
 ## Tasks
 T1 | S1 | Harden mobile inventory layout and preserve local table scrolling | completed | commit: e3a27cd
-T2 | S2-S3 | Integrate inventory section navigation into the existing primary bar | completed | commit: <pending>
-T3 | S1-S3 | Verify routes and responsive screens | completed | commit: <pending>
+T2 | S2-S3 | Integrate inventory section navigation into the existing primary bar | completed | commit: c8b7ad2
+T3 | S1-S3 | Verify routes and responsive screens | completed | commit: c8b7ad2
 
 ## Log
 L1. “Inicia la correcion y dime recomendaciones para organizar mejor la informacion”
