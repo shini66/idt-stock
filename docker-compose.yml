@@ -1,0 +1,101 @@
+name: idt-stock
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: app
+    restart: unless-stopped
+    environment:
+      APP_NAME: "iDT Stock"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: "${APP_KEY}"
+      APP_URL: "https://${APP_DOMAIN}"
+      APP_LOCALE: es
+      APP_FALLBACK_LOCALE: en
+
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_DATABASE: idt_stock
+      DB_USERNAME: idt_stock
+      DB_PASSWORD: "${DB_PASSWORD}"
+
+      SESSION_DRIVER: database
+      SESSION_SECURE_COOKIE: "true"
+      CACHE_STORE: database
+      QUEUE_CONNECTION: sync
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: info
+      MAIL_MAILER: log
+
+    volumes:
+      - storage_public:/var/www/html/storage/app/public
+    networks:
+      - frontend
+      - database
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: nginx-prod
+    restart: unless-stopped
+    volumes:
+      - storage_public:/var/www/html/public/storage:ro
+    networks:
+      - frontend
+      - web
+    depends_on:
+      app:
+        condition: service_healthy
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.idt-stock.rule: "Host(`${APP_DOMAIN}`)"
+      traefik.http.routers.idt-stock.entrypoints: websecure
+      traefik.http.routers.idt-stock.tls: "true"
+      traefik.http.routers.idt-stock.tls.certresolver: cloudflare
+      traefik.http.routers.idt-stock.service: idt-stock
+      traefik.http.services.idt-stock.loadbalancer.server.port: "80"
+      traefik.docker.network: web
+
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: idt_stock
+      MARIADB_USER: idt_stock
+      MARIADB_PASSWORD: "${DB_PASSWORD}"
+      MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - database
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+networks:
+  frontend:
+  database:
+    internal: true
+  web:
+    external: true
+
+volumes:
+  storage_public:
+  db_data:
