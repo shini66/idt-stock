@@ -8,9 +8,9 @@ S2. “SI y no seria ideal poder serparar en secciones tambien por ejemplo una p
 S3. “aplica ambas”
 
 ## Tasks
-T1 | S1 | Harden mobile inventory layout and preserve local table scrolling | completed | commit: <pending>
-T2 | S2-S3 | Create focused Dashboard, Products, and Movements screens with navigation | completed | commit: <pending>
-T3 | S1-S3 | Verify routes, interactions, and responsive layouts | completed | commit: <pending>
+T1 | S1 | Harden mobile inventory layout and preserve local table scrolling | completed | commit: e3a27cd
+T2 | S2-S3 | Create focused Dashboard, Products, and Movements screens with navigation | completed | commit: e3a27cd
+T3 | S1-S3 | Verify routes, interactions, and responsive layouts | completed | commit: e3a27cd
 
 ## Log
 L1. “Inicia la correcion y dime recomendaciones para organizar mejor la informacion”
