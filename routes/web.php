@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth', 'can:use-stock'])->group(function () {
@@ -24,7 +24,6 @@ Route::middleware(['auth', 'can:use-stock'])->group(function () {
 Route::middleware([
     'auth',
     config('jetstream.auth_session'),
-    'verified',
 ])->group(function () {
     Route::redirect('/dashboard', '/stock')->name('dashboard');
 });
